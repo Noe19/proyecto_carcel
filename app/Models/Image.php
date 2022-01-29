@@ -21,7 +21,7 @@ class Image extends Model
         return $this->morphTo();
     }
 
-
+//Importante pues si no esta la  ruta http puede que guarde su nombre
     public function getUrl(): string
     {
         return Str::startsWith($this->path, 'https://')
