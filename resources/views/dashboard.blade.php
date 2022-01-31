@@ -212,9 +212,9 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown.simple.link>{{ __('List directors') }}</x-dropdown.simple.link>
+                            <x-dropdown.simple.link :href="route('director.index')">{{ __('List directors') }}</x-dropdown.simple.link>
 
-                            <x-dropdown.simple.link>{{ __('Create a new director') }}</x-dropdown.simple.link>
+                            <x-dropdown.simple.link :href="route('director.create')">{{ __('Create a new director') }}</x-dropdown.simple.link>
 
                         </x-slot>
 

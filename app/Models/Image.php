@@ -8,7 +8,13 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Image extends Model
+
 {
+ // enviar varios datos masivos
+ protected $fillable =[
+     'path',
+ ];
+
     use HasFactory;
 
 
