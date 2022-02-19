@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Jail extends Model
 {
+
+    protected $fillable = ['name', 'code', 'type', 'capacity', 'ward_id','description'];
     use HasFactory;
     //Relación uno a uno
     // Una carcel le pertenece a un pabellon

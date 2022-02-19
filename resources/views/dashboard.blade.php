@@ -258,6 +258,68 @@
                     </x-dropdown.simple.option>
                     @endcan
 
+                    @can('manage-wards')
+
+                        <x-dropdown.simple.option class="w-full" :isActive="request()->routeIs('ward.*')">
+                            <x-slot name="header">
+                                <x-icons.warehouse/>
+                                <span>{{__("Wards")}}</span>
+                            </x-slot>
+                            <x-slot name="content">
+
+                                <x-dropdown.simple.link :href="route('ward.index')">
+                                    {{ __('List wards') }}
+                                </x-dropdown.simple.link>
+                                <x-dropdown.simple.link :href="route('ward.create')">
+                                    {{ __('Create a new ward') }}
+                                </x-dropdown.simple.link>
+                            </x-slot>
+                        </x-dropdown.simple.option>
+                    @endcan
+
+                    @can('manage-jails')
+                    <x-dropdown.simple.option class="w-full" :isActive="request()->routeIs('jail.*')">
+
+                        <x-slot name="header">
+                            <x-icons.jail/>
+                            <span>{{__("Jails")}}</span>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <x-dropdown.simple.link :href="route('jail.index')">
+                                {{ __('List jails') }}
+                            </x-dropdown.simple.link>
+                            <x-dropdown.simple.link :href="route('jail.create')">
+                                {{ __('Create a new jail') }}
+                            </x-dropdown.simple.link>
+                        </x-slot>
+                    </x-dropdown.simple.option>
+                @endcan
+
+                
+                @can('manage-assignment')
+                <x-dropdown.simple.option class="w-full" :isActive="request()->routeIs('assignment.*')">
+
+                    <x-slot name="header">
+                        <x-icons.card/>
+                        <span>{{__("Assignments")}}</span>
+                    </x-slot>
+
+                    <x-slot name="content">
+
+                        <x-dropdown.simple.link :href="route('assignment.prisoners-jails.index')">
+                            {{ __('Prisoners to jails') }}
+                        </x-dropdown.simple.link>
+
+                        <x-dropdown.simple.link :href="route('assignment.guards-wards.index')">
+                            {{ __('Guards to wards') }}
+                        </x-dropdown.simple.link>
+                        
+                    </x-slot>
+
+                </x-dropdown.simple.option>
+           @endcan
+
 
 
 
