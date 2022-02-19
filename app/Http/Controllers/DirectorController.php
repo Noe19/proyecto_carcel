@@ -14,7 +14,14 @@ class DirectorController extends Controller
 {
 
 
-   
+    public function __construct()
+    {
+        $this->middleware('can:manage-directors');
+
+        $this->middleware('active.user')->only('edit', 'update');
+        
+        $this->middleware('verify.user.role:director')->except('index', 'create', 'store', 'search');
+    }
 
 
     public function index()

@@ -97,6 +97,11 @@ class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
+    public function hasRole(string $role)
+    {
+        return $this->role->name === $role;
+    }
+
     public function updateUIAvatar(string $avatar_url)
     {
         $user_image = $this->image;
