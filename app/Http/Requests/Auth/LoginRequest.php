@@ -11,19 +11,28 @@ use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
-
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
     public function authorize()
     {
         return true;
     }
 
-
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
     public function rules()
     {
         return [
-            'login_field' => ['required', 'string'],
+            'email' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
+
     }
 
 
@@ -31,13 +40,18 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        $email_exist = Auth::attempt(['email' => $this->input('login_field'), 'password' => $this->input('password')], $this->boolean('remember'));
 
-        $username_exist = Auth::attempt(['username' => $this->input('login_field'), 'password' => $this->input('password')], $this->boolean('remember'));
+        $email_exist = Auth::attempt(['email' => $this->input('email'), 'password' => $this->input('password')], $this->boolean('remember'));
 
-        if (!$email_exist || !$username_exist)
+
+        $username_exist = Auth::attempt(['username' => $this->input('username'), 'password' => $this->input('password')], $this->boolean('remember'));
+
+
+        if (!$email_exist && !$username_exist)
+
         {
             RateLimiter::hit($this->throttleKey());
+
             throw ValidationException::withMessages([
                 'email' => __('auth.failed'),
             ]);
@@ -49,7 +63,7 @@ class LoginRequest extends FormRequest
 
     public function ensureIsNotRateLimited()
     {
-        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 2)) {
             return;
         }
 
@@ -68,6 +82,6 @@ class LoginRequest extends FormRequest
 
     public function throttleKey()
     {
-        return Str::lower($this->input('email')) . '|' . $this->ip();
+        return Str::lower($this->input('email')).'|'.$this->ip();
     }
 }

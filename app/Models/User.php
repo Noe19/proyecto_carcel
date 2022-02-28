@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
 
+
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable,HasImage;
@@ -82,7 +83,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return isset($value) ? Carbon::parse($value)->format('d/m/Y') : null;
     }
- //Sprint 3 manejo de imágenes en el Modelo User
+
     public function generateAvatarUrl(): string
     {
         $ui_avatar_api = "https://ui-avatars.com/api/?name=*+*&size=128";
@@ -95,11 +96,6 @@ class User extends Authenticatable implements MustVerifyEmail
             ],
             $ui_avatar_api
         );
-    }
-
-    public function hasRole(string $role)
-    {
-        return $this->role->name === $role;
     }
 
     public function updateUIAvatar(string $avatar_url)
@@ -115,7 +111,10 @@ class User extends Authenticatable implements MustVerifyEmail
         }
     }
 
-   
+    public function hasRole(string $role)
+    {
+        return $this->role->name === $role;
+    }
 
 
 
