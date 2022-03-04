@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\WardController;
@@ -47,13 +46,20 @@ Route::get('/wards', [WardController::class, 'index']);
 
 
 
+Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/wards', [WardController::class, 'store']);
+Route::get('/wards/{ward}', [WardController::class, 'show']);
+Route::put('/wards/{ward}', [WardController::class, 'update']);
+Route::delete('/wards/{ward}', [WardController::class, 'destroy']);
+
+
 // Protected routes
 Route::middleware('auth:sanctum')->group(function ()
 {
-    Route::post('/logout', [AuthController::class, 'logout']);
+   /* Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/wards', [WardController::class, 'store']);
     Route::get('/wards/{ward}', [WardController::class, 'show']);
     Route::put('/wards/{ward}', [WardController::class, 'update']);
     Route::delete('/wards/{ward}', [WardController::class, 'destroy']);
+    */
 });
-

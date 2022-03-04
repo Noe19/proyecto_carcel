@@ -29,7 +29,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'string'],
+            'login_field' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
 
@@ -41,10 +41,10 @@ class LoginRequest extends FormRequest
         $this->ensureIsNotRateLimited();
 
 
-        $email_exist = Auth::attempt(['email' => $this->input('email'), 'password' => $this->input('password')], $this->boolean('remember'));
+        $email_exist = Auth::attempt(['email' => $this->input('login_field'), 'password' => $this->input('password')], $this->boolean('remember'));
 
 
-        $username_exist = Auth::attempt(['username' => $this->input('username'), 'password' => $this->input('password')], $this->boolean('remember'));
+        $username_exist = Auth::attempt(['username' => $this->input('login_field'), 'password' => $this->input('password')], $this->boolean('remember'));
 
 
         if (!$email_exist && !$username_exist)

@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 class WardController extends Controller
 {
 
-    public function __construct()
+   /* public function __construct()
     {
         $this->middleware('can:manage-wards');
     }
-
+*/
 
     // Función para mostrar la vista principal de todo los pabellones
     public function index()

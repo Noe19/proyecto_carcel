@@ -8,11 +8,15 @@ use Illuminate\Http\Request;
 
 class WardController extends Controller
 {
+
     // Para verificar la acción (CRUD) del usuario por medio de los gates
-    public function __construct()
+   /* public function __construct()
     {
         $this->middleware('can:manage-wards')->except('index');
     }
+
+*/
+
 
 
     /**
@@ -22,10 +26,17 @@ class WardController extends Controller
      */
     public function index()
     {
-        return Ward::all();
+       // return Ward::all();
+       return Ward::where('state',1)->get();
     }
 
-    
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -48,6 +59,7 @@ class WardController extends Controller
         return Ward::find($id);
     }
 
+
     /**
      * Update the specified resource in storage.
      *
@@ -62,12 +74,15 @@ class WardController extends Controller
             'location' => ['required'],
             'description' => ['nullable'],
         ]);
+
         $ward= Ward::find($id);
+
         $ward->update([
             "name" => $request['name'],
             "location" => $request['location'],
             "description" => $request['description']
         ]);
+
         return $ward;
     }
 
@@ -80,6 +95,7 @@ class WardController extends Controller
     public function destroy($id)
     {
         $ward= Ward::find($id);
+
         $state = $ward->state;
 
         if ($this->verifyWardHasAssignedGuards($ward))
@@ -93,11 +109,14 @@ class WardController extends Controller
         $ward->state = !$state;
         $ward->save();
         return $ward;
-
     }
+
+
 
     private function verifyWardHasAssignedGuards(Ward $ward)
     {
         return (bool)$ward->users->count();
     }
+
+
 }

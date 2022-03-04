@@ -12,6 +12,15 @@ class ReportPolicy
     use HandlesAuthorization;
 
     /**
+     * Create a new policy instance.
+     *
+     * @return void
+     */
+    use HandlesAuthorization;
+
+    // https://laravel.com/docs/9.x/authorization#authorizing-resource-controllers
+
+    /**
      * Determine whether the user can view any models.
      *
      */
@@ -27,9 +36,13 @@ class ReportPolicy
     public function view(User $user, Report $report)
     {
         return $user->id === $report->user_id
+
+        // https://laravel.com/docs/9.x/authorization#policy-responses
             ? Response::allow()
             : Response::deny("You don't own this report.");
     }
+
+
 
     /**
      * Determine whether the user can create models.
@@ -40,6 +53,10 @@ class ReportPolicy
         return $user->role->name === 'guard';
     }
 
+
+
+
+
     /**
      * Determine whether the user can update the model.
      *
@@ -47,9 +64,13 @@ class ReportPolicy
     public function update(User $user, Report $report)
     {
         return $user->id === $report->user_id
+
             ? Response::allow()
+
             : Response::deny("You don't own this report.");
     }
+
+
 
     /**
      * Determine whether the user can delete the model.
@@ -58,7 +79,11 @@ class ReportPolicy
     public function delete(User $user, Report $report)
     {
         return $user->id === $report->user_id
+
             ? Response::allow()
+
             : Response::deny("You don't own this report.");
     }
+
+
 }

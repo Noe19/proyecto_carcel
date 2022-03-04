@@ -12,7 +12,13 @@ class Report extends Model
 
     use HasFactory, HasImage;
 
+
+
     protected $fillable = ['title', 'description'];
+
+
+
+
 
     // Relación de uno a muchos
     // Un reporte le pertenece a un usuario
@@ -27,5 +33,6 @@ class Report extends Model
     {
         return $this->morphOne(Image::class,'imageable');
     }
+
 
 }
