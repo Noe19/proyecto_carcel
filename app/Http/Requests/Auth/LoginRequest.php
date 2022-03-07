@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Models\Role;
+use App\Models\User;
 
 class LoginRequest extends FormRequest
 {
@@ -35,16 +37,33 @@ class LoginRequest extends FormRequest
 
     }
 
-
     public function authenticate()
     {
         $this->ensureIsNotRateLimited();
 
+        $id_prisioner = Role::where('name','prisoner')->first()->id;
+        $username_email= $this->input('login_field');
 
-        $email_exist = Auth::attempt(['email' => $this->input('login_field'), 'password' => $this->input('password')], $this->boolean('remember'));
+       // dd($id_prisioner);
+
+        $this->ensureIsNotRateLimited();
+        $user_roleId_email = User::where('email',$this->input('login_field'))->first();
+        $user_roleId_username = User::where('username',$this->input('login_field'))->first();
+        if($user_roleId_email){
+            $user_roleId=$user_roleId_email -> role_id;
+        }
+        else{
+            $user_roleId=$user_roleId_username -> role_id;
+        }
+        if($user_roleId===$id_prisioner){
+            $username_email='xxxx';
+         }
 
 
-        $username_exist = Auth::attempt(['username' => $this->input('login_field'), 'password' => $this->input('password')], $this->boolean('remember'));
+        $email_exist = Auth::attempt(['email' => $username_email, 'password' => $this->input('password')], $this->boolean('remember'));
+
+
+        $username_exist = Auth::attempt(['username' => $username_email, 'password' => $this->input('password')], $this->boolean('remember'));
 
 
         if (!$email_exist && !$username_exist)
