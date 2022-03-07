@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -27,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'email',
         'birthdate',
+        'status',
     ];
 
     
@@ -110,6 +113,7 @@ class User extends Authenticatable implements MustVerifyEmail
         {
             $user_image->path = $avatar_url;
             $user_image->save();
+           
         }
     }
 
@@ -117,6 +121,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->role->name === $role;
     }
+
+    
+     
+     
 
 
 

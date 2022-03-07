@@ -36,6 +36,7 @@ class UserSeeder extends Seeder
         // $users_prisioners = User::where('role_id',4)->get();
         // dd(count($users_prisioners));
 
-
+       
     }
+   
 }

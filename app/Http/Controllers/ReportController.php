@@ -132,7 +132,9 @@ class ReportController extends Controller
         // Se procede con la actualización de la imagen
         if ($request->has('image'))
         {
-            $report->updateImage($request['image'], 'reports');
+           // modificado para droblox
+           // $report->updateImage($request['image'], 'reports');
+           $report->updateImage($request['image'], 'reports');
         }
 
         // Se imprime el mensaje de exito

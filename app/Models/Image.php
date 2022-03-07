@@ -28,12 +28,16 @@ class Image extends Model
     }
 
 //Importante pues si no esta la  ruta http puede que guarde su nombre
+    //Modificado para la nube 
     public function getUrl(): string
     {
         return Str::startsWith($this->path, 'https://')
             ? $this->path
             : Storage::url($this->path);
     }
+    
+    
+ 
 
 
 }

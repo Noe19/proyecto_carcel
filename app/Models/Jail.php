@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Jail extends Model
 {
@@ -28,5 +29,6 @@ class Jail extends Model
     {
         return $this->morphOne(Image::class, 'imageable');
     }
+   
    
 }
